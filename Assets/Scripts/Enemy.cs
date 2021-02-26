@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Player : MonoBehaviour {
+public class Enemy : MonoBehaviour {
 
     public Rigidbody2D rigidbodyBird;//刚体
-    public float speed=100f;//速度
+    public float speed = 100f;//速度
     public float fireRate = 10f;
+    public float lifetime = 4f;
     public Animator ani;//动画控制器
 
     private bool death = false;
@@ -22,14 +23,16 @@ public class Player : MonoBehaviour {
     public GameObject bulletTemplate;
 
     //private bool isFlying = false;
-    
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start()
+    {
         this.ani = this.GetComponent<Animator>();
-        this.Idle();
+        this.Fly();
         initPos = this.transform.position;
-	}
+        Destroy(this.gameObject, lifetime );
+    }
 
     public void Init()
     {
@@ -40,28 +43,21 @@ public class Player : MonoBehaviour {
 
     float fireTimer = 0;
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update()
+    {
 
         //如果死亡就停止所有行为
         if (this.death)
             return;
 
         //if (!this.isFlying)
-           // return;
-        
+        //    return;
+
         fireTimer += Time.deltaTime;
-
-        Vector2 pos = this.transform.position;
-
-        pos.x += Input.GetAxis("Horizontal") * Time.deltaTime*speed;
-        pos.y += Input.GetAxis("Vertical") * Time.deltaTime*speed;
-        this.transform.position = pos;
-        if (Input.GetButton("Fire1"))
-        {
-            this.Fire();
-        }
-	}
+        this.transform.position += new Vector3(-Time.deltaTime * speed, 0,0);
+        this.Fire();
+    }
 
     public void Fire()
     {
@@ -69,7 +65,7 @@ public class Player : MonoBehaviour {
         {
             GameObject go = Instantiate(bulletTemplate);
             go.transform.position = this.transform.position;
-
+            go.GetComponent<Element>().direction = -1;
             fireTimer = 0f;
         }
     }
@@ -90,26 +86,26 @@ public class Player : MonoBehaviour {
     public void Die()
     {
         this.death = true;
-        if(this.OnDeath!=null)
+        if (this.OnDeath != null)
         {
             this.OnDeath();
         }
     }
 
-     void OnCollisionEnter2D(Collision2D col)
+    void OnCollisionEnter2D(Collision2D col)
     {
         //this.Die();
     }
 
-     void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         Debug.Log("OnTriggerEnter2D:" + col.gameObject.name + ":" + gameObject.name + ":" + Time.time);
-        if(col.gameObject.name.Equals("ScoreArea"))
+        if (col.gameObject.name.Equals("ScoreArea"))
         {
 
         }
         //else
-            //this.Die();
+        //this.Die();
     }
 
     void OnTriggerExit2D(Collider2D col)

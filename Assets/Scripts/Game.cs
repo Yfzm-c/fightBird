@@ -45,6 +45,7 @@ public class Game : MonoBehaviour {
     }
 
     public PipelineManger pipelineManger;
+    public UnitManger unitManager;
 
 	void Start () {
         this.panelReady.SetActive(true);
@@ -63,6 +64,7 @@ public class Game : MonoBehaviour {
     {
         this.Status = GAME_STATUS.GameOver;
         this.pipelineManger.Stop();
+        this.unitManager.Stop();
     }
 
     // Update is called once per frame
@@ -76,6 +78,7 @@ public class Game : MonoBehaviour {
         Debug.LogFormat("StartGame:{0}",this.status);
 
         pipelineManger.StartRun();
+        unitManager.Begin();
         player.Fly();
     }
 
