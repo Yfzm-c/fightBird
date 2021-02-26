@@ -86,31 +86,37 @@ public class Enemy : MonoBehaviour {
     public void Die()
     {
         this.death = true;
+        this.ani.SetTrigger("Die");
         if (this.OnDeath != null)
         {
             this.OnDeath();
         }
+        Destroy(this.gameObject,0.2f);
     }
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        Debug.Log("Enemy:OnCollisionEnter2D:" + col.gameObject.name + ":" + gameObject.name + ":" + Time.time);
         //this.Die();
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log("OnTriggerEnter2D:" + col.gameObject.name + ":" + gameObject.name + ":" + Time.time);
-        if (col.gameObject.name.Equals("ScoreArea"))
+        Element bullet = col.gameObject.GetComponent<Element>();
+        if (bullet == null)
         {
-
+            return;
         }
-        //else
-        //this.Die();
+        Debug.Log("Player:OnTriggerEnter2D:" + col.gameObject.name + ":" + gameObject.name + ":" + Time.time);
+        if (bullet.side == SIDE.PLAYER)
+        {
+            this.Die();
+        }
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
-        Debug.Log("OnTriggerExit2D:" + col.gameObject.name + ":" + gameObject.name + ":" + Time.time);
+        Debug.Log("Enemy:OnTriggerExit2D:" + col.gameObject.name + ":" + gameObject.name + ":" + Time.time);
         if (col.gameObject.name.Equals("ScoreArea"))
         {
             if (this.OnScore != null)

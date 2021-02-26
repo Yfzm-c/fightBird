@@ -32,7 +32,10 @@ public class Game : MonoBehaviour {
 
     public int score;
     public Text uiScore;
-    public Text uiScore2; 
+    public Text uiScore2;
+
+    public Slider hpbar;
+
     public int Score
     {
         get { return score; }
@@ -69,7 +72,7 @@ public class Game : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
+        this.hpbar.value = Mathf.Lerp(this.hpbar.value, this.player.HP, 0.1f);
 	}
     
     public void StartGame()
@@ -80,6 +83,7 @@ public class Game : MonoBehaviour {
         pipelineManger.StartRun();
         unitManager.Begin();
         player.Fly();
+        this.hpbar.value = this.player.HP;
     }
 
     public void UpdateUI()

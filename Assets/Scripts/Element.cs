@@ -7,6 +7,9 @@ public class Element : MonoBehaviour {
     public float speed;
 
     public int direction = 1;
+
+    public SIDE side;
+    public float power=1;
 	// Use this for initialization
 	void Start () {
         Destroy(this.gameObject, 3f);
