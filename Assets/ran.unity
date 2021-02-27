@@ -662,9 +662,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyTemplate: {fileID: 1050183764285644, guid: 57e896f4b9a815946adf5437d0f195b7,
     type: 2}
-  speed: 3
+  enemy2Template: {fileID: 1050183764285644, guid: 92a2a25520da5634d8a1798094e60365,
+    type: 2}
+  enemy3Template: {fileID: 1050183764285644, guid: e0de702a15bbc484a84e8cb1e23249db,
+    type: 2}
+  speed1: 1
+  speed2: 2
+  speed3: 3
   enemies: []
-  range: {x: 0, y: 8}
 --- !u!4 &817161824
 Transform:
   m_ObjectHideFlags: 0
@@ -916,7 +921,6 @@ MonoBehaviour:
   uiScore: {fileID: 218169405}
   uiScore2: {fileID: 2098637865}
   hpbar: {fileID: 317578462}
-  pipelineManger: {fileID: 1829894659}
   unitManager: {fileID: 817161823}
 --- !u!1 &1246044226
 GameObject:
@@ -1382,7 +1386,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1829894659
 MonoBehaviour:
   m_ObjectHideFlags: 0

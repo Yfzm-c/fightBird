@@ -3,42 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Player : MonoBehaviour {
+public class Player : Unit
+{
 
-    public Rigidbody2D rigidbodyBird;//刚体
-    public float speed=100f;//速度
-    public float fireRate = 10f;
-    public Animator ani;//动画控制器
+    public event DeathNotify OnDeath;
 
-    private bool death = false;
-    public delegate void DeathNotify();//委托，死亡通知
 
-    public event DeathNotify OnDeath;//事件，死亡
-
-    public UnityAction<int> OnScore;
-
-    private Vector3 initPos;//小鸟初始化位置
-
-    public GameObject bulletTemplate;
-
-    public float HP = 100f;
-
-    //private bool isFlying = false;
-    
-
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         this.ani = this.GetComponent<Animator>();
         this.Idle();
         initPos = this.transform.position;
 	}
-
-    public void Init()
-    {
-        this.transform.position = initPos;
-        this.Idle();
-        this.death = false;
-    }
 
     float fireTimer = 0;
 
@@ -65,29 +41,6 @@ public class Player : MonoBehaviour {
         }
 	}
 
-    public void Fire()
-    {
-        if (fireTimer > 1 / fireRate)
-        {
-            GameObject go = Instantiate(bulletTemplate);
-            go.transform.position = this.transform.position;
-
-            fireTimer = 0f;
-        }
-    }
-
-
-    public void Idle()
-    {
-
-        this.rigidbodyBird.simulated = false;
-        this.ani.SetTrigger("Idle");
-    }
-    public void Fly()
-    {
-        this.rigidbodyBird.simulated = true;
-        this.ani.SetTrigger("Fly");
-    }
 
     public void Die()
     {
@@ -108,12 +61,13 @@ public class Player : MonoBehaviour {
      void OnTriggerEnter2D(Collider2D col)
     {
         Element bullet = col.gameObject.GetComponent<Element>();
-        if (bullet == null)
+        Enemy enemy = col.gameObject.GetComponent<Enemy>();
+        if (bullet == null && enemy==null)
         {
             return;
         }
         Debug.Log("Player:OnTriggerEnter2D:" + col.gameObject.name + ":" + gameObject.name + ":" + Time.time);
-        if (bullet.side == SIDE.ENEMY)
+        if (bullet!=null && bullet.side == SIDE.ENEMY)
         {
             this.HP=this.HP-bullet.power;
             if (this.HP <= 0)
@@ -121,6 +75,14 @@ public class Player : MonoBehaviour {
                 this.Die();
             }
         }
+
+        if (enemy != null)
+        {
+            this.HP = 0;
+            if (this.HP <= 0)
+                this.Die();
+        }
+
     }
 
     void OnTriggerExit2D(Collider2D col)

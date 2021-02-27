@@ -47,7 +47,7 @@ public class Game : MonoBehaviour {
         }
     }
 
-    public PipelineManger pipelineManger;
+    //public PipelineManger pipelineManger;
     public UnitManger unitManager;
 
 	void Start () {
@@ -66,7 +66,7 @@ public class Game : MonoBehaviour {
     private void Player_OnDeath()
     {
         this.Status = GAME_STATUS.GameOver;
-        this.pipelineManger.Stop();
+        //this.pipelineManger.Stop();
         this.unitManager.Stop();
     }
 
@@ -80,7 +80,7 @@ public class Game : MonoBehaviour {
         this.Status = GAME_STATUS.InGame;
         Debug.LogFormat("StartGame:{0}",this.status);
 
-        pipelineManger.StartRun();
+        //pipelineManger.StartRun();
         unitManager.Begin();
         player.Fly();
         this.hpbar.value = this.player.HP;
@@ -96,7 +96,7 @@ public class Game : MonoBehaviour {
     public void Restart()
     {
         this.Status = GAME_STATUS.Ready;
-        this.pipelineManger.Init();
+        //this.pipelineManger.Init();
         this.player.Init();
     }
 

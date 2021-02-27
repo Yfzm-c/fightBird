@@ -3,24 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : Unit
+{
 
-    public Rigidbody2D rigidbodyBird;//刚体
-    public float speed = 100f;//速度
-    public float fireRate = 10f;
     public float lifetime = 4f;
-    public Animator ani;//动画控制器
-
-    private bool death = false;
-    public delegate void DeathNotify();//委托，死亡通知
 
     public event DeathNotify OnDeath;//事件，死亡
 
-    public UnityAction<int> OnScore;
 
-    private Vector3 initPos;//小鸟初始化位置
+    public ENEMY_TYPE enemyType;
 
-    public GameObject bulletTemplate;
+    public Vector2 range;
+
+    float initY = 0;
 
     //private bool isFlying = false;
 
@@ -32,56 +27,25 @@ public class Enemy : MonoBehaviour {
         this.Fly();
         initPos = this.transform.position;
         Destroy(this.gameObject, lifetime );
+        initY = Random.Range(range.x, range.y);
+        this.transform.position = new Vector3(8f, initY, 0);
     }
 
-    public void Init()
-    {
-        this.transform.position = initPos;
-        this.Idle();
-        this.death = false;
-    }
-
-    float fireTimer = 0;
 
     // Update is called once per frame
     void Update()
     {
 
-        //如果死亡就停止所有行为
-        if (this.death)
-            return;
-
-        //if (!this.isFlying)
-        //    return;
-
-        fireTimer += Time.deltaTime;
-        this.transform.position += new Vector3(-Time.deltaTime * speed, 0,0);
+        float y = 0;
+        if (this.enemyType == ENEMY_TYPE.SWING_ENEMY)
+        {
+            y = Mathf.Sin(Time.timeSinceLevelLoad)*3f;
+        }
+        this.transform.position = new Vector3(this.transform.position.x-Time.deltaTime * speed, initY+y);
         this.Fire();
     }
 
-    public void Fire()
-    {
-        if (fireTimer > 1 / fireRate)
-        {
-            GameObject go = Instantiate(bulletTemplate);
-            go.transform.position = this.transform.position;
-            go.GetComponent<Element>().direction = -1;
-            fireTimer = 0f;
-        }
-    }
 
-
-    public void Idle()
-    {
-
-        this.rigidbodyBird.simulated = false;
-        this.ani.SetTrigger("Idle");
-    }
-    public void Fly()
-    {
-        this.rigidbodyBird.simulated = true;
-        this.ani.SetTrigger("Fly");
-    }
 
     public void Die()
     {

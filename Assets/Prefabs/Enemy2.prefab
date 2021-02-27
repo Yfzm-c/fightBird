@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 58707993066244036}
   - component: {fileID: 114767789736028830}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Enemy2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -204,7 +204,7 @@ MonoBehaviour:
   ani: {fileID: 95936334925999218}
   bulletTemplate: {fileID: 1817797433174068, guid: c12e8832d0a5cfe4b95a646974207435,
     type: 2}
-  enemyType: 0
+  enemyType: 1
   range: {x: -2, y: 3}
 --- !u!212 &212501634046711214
 SpriteRenderer:
@@ -242,7 +242,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 54e04bac355aa1147a7c02af12fadb8a, type: 3}
-  m_Color: {r: 0.9245283, g: 0.39684942, b: 0.39684942, a: 1}
+  m_Color: {r: 0.9613274, g: 0.9716981, b: 0.48126557, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -288,7 +288,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 8b9e71e7e6a88cb49bd863183181b304, type: 3}
-  m_Color: {r: 0.9245283, g: 0.39684942, b: 0.39684942, a: 1}
+  m_Color: {r: 0.9613274, g: 0.9716981, b: 0.48126557, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -334,7 +334,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: b9dd3f5b46769314f9254b1f2fca52dc, type: 3}
-  m_Color: {r: 0.9245283, g: 0.39684942, b: 0.39684942, a: 1}
+  m_Color: {r: 0.9613274, g: 0.9716981, b: 0.48126557, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

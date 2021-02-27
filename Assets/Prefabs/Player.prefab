@@ -199,10 +199,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbodyBird: {fileID: 50162658126662344}
   speed: 5
-  fireRate: 10
+  fireRate: 2
   ani: {fileID: 95936334925999218}
   bulletTemplate: {fileID: 1817797433174068, guid: d9d3e83edeaedde4c98953a69b107732,
     type: 2}
+  HP: 100
 --- !u!212 &212501634046711214
 SpriteRenderer:
   m_ObjectHideFlags: 1
